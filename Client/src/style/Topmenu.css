@@ -1,0 +1,43 @@
+.custom-navbar {
+  font-size: 1.2rem;
+  /* font-weight: bold; */
+  /* background: linear-gradient(90deg, rgba(33, 150, 243, 1) 0%, rgba(0, 123, 255, 1) 100%); */
+}
+
+.navbar-brand-custom {
+  font-family: 'Arial', sans-serif;
+  font-size: 1.6rem;
+  color: #fff !important;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
+}
+
+.navbar-brand-custom:hover {
+  color: #ddd !important;
+}
+
+.nav-link-custom {
+  color: white !important;
+  margin-left: 20px;
+  transition: color 0.3s ease;
+}
+
+.nav-link-custom:hover {
+  color: #ffc107 !important;
+}
+
+.nav-link-custom.active {
+  color: #ffc107 !important;
+}
+
+@media screen and (max-width: 768px) {
+  .custom-navbar {
+    font-size: 1rem;
+  }
+  .navbar-brand-custom {
+    font-size: 1.3rem;
+  }
+  .nav-link-custom {
+    margin-left: 10px;
+  }
+}
