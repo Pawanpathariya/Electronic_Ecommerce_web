@@ -43,9 +43,9 @@ const Topmenu = () => {
                 <NavDropdown.Item as={Link} to="/products/all">All</NavDropdown.Item> */}
               </NavDropdown>
 
-              <Nav.Link as={Link} to="/cart" className="nav-link-custom">Cart</Nav.Link>
               <Nav.Link as={Link} to="/blog" className="nav-link-custom">Blogs</Nav.Link>
               <Nav.Link as={Link} to="/contact" className="nav-link-custom">Contact us</Nav.Link>
+              <Nav.Link as={Link} to="/userlogin" className="nav-link-custom">User Login</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

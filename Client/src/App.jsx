@@ -3,7 +3,7 @@ import Layout from "./Layout";
 import Home from "./pages/Home";
 import CardData from "./pages/CardData";
 import ProductDetail from "./pages/ProductDeatil";
-import Cart from "./pages/Cart";
+import UserLogin from "./pages/UserLogin";
 import Leptop from "./pages/Leptop";
 import Mobile from "./pages/Mobile";
 import Search from "./pages/Search";
@@ -31,7 +31,6 @@ const App = () => {
           <Route path="home" element={<Home />} />
           <Route path="carddata" element={<CardData />} />
           <Route path="prodetail/:proid" element={<ProductDetail />} />
-          <Route path="cart" element={<Cart />} />
           <Route path="products/leptop" element={<Leptop/>}/>
           <Route path="products/mobile" element={<Mobile/>}/>
           <Route path="products/computer" element={<Computer/>}/>
@@ -40,10 +39,10 @@ const App = () => {
           <Route path="blog" element={<Blogs/>}/>
           <Route path="contact" element={<Contact/>}/>
           <Route path="checkout" element={<Checkout/>}/>
+          <Route path="userlogin" element={<UserLogin/>} />
+
         </Route>
 
-
- 
           {/* Admin Routes */}
 
    <Route path="/admin" element={<Login/>}/>

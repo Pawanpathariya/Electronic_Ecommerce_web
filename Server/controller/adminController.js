@@ -17,6 +17,8 @@ try {
 }
 }
 
+
+
 const InsertProduct=async(req,res)=>{
     try {
         const {proname,brand,category,description,price}=req.body;
@@ -38,8 +40,40 @@ const DisplayProduct=async(req,res)=>{
         res.status(500).send({message:"Internal server error"})
     }
     }
+
+
+const ChangeTrending=async(req,res)=>{
+const {id}=req.body;
+try {
+    const product=await ProductModel.findById(id);
+   if(product.trending==="false"){
+    await ProductModel.findByIdAndUpdate(id,{trending:"true"});
+    res.status(200).send({message:"Product is marked as trending"});
+   }
+   else{
+    await ProductModel.findByIdAndUpdate(id,{trending:"false"});
+    res.status(200).send({message:"Product is marked as not trending"});
+   }
+} catch (error) {
+    res.status(500).send({message:"Internal server error"});
+}
+}
+
+
+const DeleteProduct=async(req,res)=>{
+    const {id}=req.body;
+    try {
+        await ProductModel.findByIdAndDelete(id);
+        res.status(200).send({message:"Product is deleted"});
+    } catch (error) {
+        res.status(500).send({message:"Internal server error"});
+    }
+}
+
 module.exports={
     AdminLogin,
     InsertProduct,
-    DisplayProduct
+    DisplayProduct,
+    ChangeTrending,
+    DeleteProduct
 }

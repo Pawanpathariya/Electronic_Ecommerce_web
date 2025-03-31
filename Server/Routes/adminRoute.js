@@ -39,4 +39,6 @@ const storage = multer.diskStorage({
 router.post("/login",adminController.AdminLogin)
 router.post("/insertproduct",upload.array('image', 10),adminController.InsertProduct)
 router.get('/getproduct',adminController.DisplayProduct);
+router.post('/changetrending',adminController.ChangeTrending);
+router.post('/deleteproduct',adminController.DeleteProduct);
 module.exports=router;
