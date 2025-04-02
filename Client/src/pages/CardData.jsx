@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { increaseQuantity,decreaseQuantity } from '../redux/cartSlice';
+import { increaseQuantity,decreaseQuantity ,removeProduct} from '../redux/cartSlice';
 const CardData = () => {
   const dispatch=useDispatch();
 const product=useSelector(state=>state.addtocart.cart);
@@ -34,6 +34,7 @@ React.useEffect(() => {
             <th>Price</th>
             <th>Quantity</th>
             <th>Total</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -52,6 +53,9 @@ React.useEffect(() => {
                 </td>
                 <td>
                   {p.quantity*p.price}
+                </td>
+                <td>
+                  <Button variant="danger" onClick={() => { dispatch(removeProduct(p.id)) }}>Remove</Button>  
                 </td>
             </tr>
           ))}

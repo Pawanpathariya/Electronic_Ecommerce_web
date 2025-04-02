@@ -42,13 +42,13 @@ const Footer = () => {
         <div style={styles.section}>
           <h4>Follow Us On Social Media</h4>
           <div style={styles.socialLinks}>
-            <a href="https://www.facebook.com/share/1Y8j9opZFH/" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.facebook.com/pawan.pathariya.9/" target="_blank" rel="noopener noreferrer">
               <img src="https://img.icons8.com/?size=48&id=118497&format=png" alt="Facebook" style={styles.icon} />
             </a>
-            <a href="https://www.linkedin.com/in/kamleshshahdeveloper" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.linkedin.com/in/pawan-pathariya-83203726a/" target="_blank" rel="noopener noreferrer">
               <img src="https://img.icons8.com/?size=48&id=13930&format=png" alt="Twitter" style={styles.icon} />
             </a>
-            <a href="https://www.instagram.com/the_developer_lifecycle?igsh=MXY1eXN3eXFlNnc4aw==" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.instagram.com/pawan_pathariya_/" target="_blank" rel="noopener noreferrer">
               <img src="https://img.icons8.com/?size=48&id=32323&format=png" alt="Instagram" style={styles.icon} />
             </a>
           </div>
