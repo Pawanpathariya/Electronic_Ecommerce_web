@@ -20,6 +20,7 @@ import ViewProducts from "./admin/ViewProducts";
 import AHome from "./admin/AHome";
 import Login from "./admin/Login";
 import ProtectedRoute from "./admin/ProtectedRoute";
+import Register from "./pages/Register";
 
 
 const App = () => {
@@ -40,6 +41,7 @@ const App = () => {
           <Route path="contact" element={<Contact/>}/>
           <Route path="checkout" element={<Checkout/>}/>
           <Route path="userlogin" element={<UserLogin/>} />
+          <Route path="register" element={<Register/>}/>
 
         </Route>
 
@@ -57,6 +59,7 @@ const App = () => {
             <Route path="viewpro" element={<ViewProducts/>}/> 
             <Route path="manusers" element={<ManageUsers/>}/>
             <Route path="orders" element={<ViewOrders/>}/>
+            <Route path="checkout" element={<Checkout/>}/>
           </Route>
 
       </Routes>

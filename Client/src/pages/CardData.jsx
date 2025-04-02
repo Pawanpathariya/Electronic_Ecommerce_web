@@ -6,7 +6,9 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { increaseQuantity,decreaseQuantity ,removeProduct} from '../redux/cartSlice';
+import { useNavigate } from 'react-router-dom';
 const CardData = () => {
+  const navigate=useNavigate();
   const dispatch=useDispatch();
 const product=useSelector(state=>state.addtocart.cart);
 
@@ -63,6 +65,9 @@ React.useEffect(() => {
                 <tr style={{marginTop:'10px'}}>
           <td colSpan={6} style={{textAlign:'right'}}><b>Total Amount :</b></td>
           <td colSpan={2}><b>{total} RS</b></td>
+           <td>
+            <Button variant="primary" onClick={()=>{navigate('/checkout')}}>Checkout</Button>
+            </td>
         </tr>
         </tbody>
       </Table>

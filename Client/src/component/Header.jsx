@@ -3,8 +3,10 @@ import { FaShoppingCart, FaSearch } from "react-icons/fa";
 import { GrUserAdmin } from "react-icons/gr";
 import { Link } from 'react-router-dom';
 import "../style/Header.css"
-import { useState } from 'react';
+import { useState ,useEffect} from 'react';
 import { useSelector } from 'react-redux';
+import axios from 'axios';
+import BASEURL from '../confiq/BASEURL';
 const Header = () => {
   const product=useSelector(state=>state.addtocart.cart);
   const prolen=product.length;
@@ -23,6 +25,7 @@ const Header = () => {
         </div>
       </div>
       <div className="header-right">
+        
         <Link to="/carddata">
           <FaShoppingCart size={20} color="black" />
           <span className="cart-count">{prolen}</span>

@@ -2,7 +2,11 @@ import React from 'react'
 
 const Checkout = () => {
   return (
-    <div>Checkout</div>
+    <>
+        <div style={{ backgroundColor: '#212529', textAlign: 'center', color: 'white', marginBottom: '20px' }}>
+        <h1>Checkout</h1>
+      </div>  
+    </>
   )
 }
 

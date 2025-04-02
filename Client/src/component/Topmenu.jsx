@@ -4,7 +4,37 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import "../style/Topmenu.css";
+import { useContext } from "react";
+import { mycont } from "../UserContext";
+import { useNavigate } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from 'react-toastify';
+import BASEURL from "../confiq/BASEURL";
+import { useEffect } from "react";
+import axios from "axios";
 const Topmenu = () => {
+  const userAuthenticate=async()=>{
+    const token = localStorage.getItem("token");
+    if (token)
+    {
+      let api=`${BASEURL}/user/userauthenticate`;
+      const response = await axios.post(api, null, { headers: { "x-auth-token": token } });
+      console.log(response.data);
+      localStorage.setItem("username", response.data.name);
+      localStorage.setItem("useremail", response.data.email);
+       navigate("/");     
+       setbtnstatus(true);  
+    }
+  }
+
+useEffect(()=>{
+  userAuthenticate();
+}, [])
+
+
+
+  const navigate=useNavigate();
+  const {btnstatus,setbtnstatus}=useContext(mycont);
   return (
     <>
       <Navbar bg="dark" variant="dark" expand="lg" className="custom-navbar">
@@ -45,12 +75,33 @@ const Topmenu = () => {
 
               <Nav.Link as={Link} to="/blog" className="nav-link-custom">Blogs</Nav.Link>
               <Nav.Link as={Link} to="/contact" className="nav-link-custom">Contact us</Nav.Link>
-              <Nav.Link as={Link} to="/userlogin" className="nav-link-custom">User Login</Nav.Link>
+              
+              {
+                !btnstatus ? (
+                  <Nav.Link as={Link} to="/userlogin" className="nav-link-custom">User Login</Nav.Link>
+                ) : (
+                  <button type="button" className="btn btn-outline-light" onClick={() => {
+                    localStorage.clear();
+                    toast.success("Logout Successful");
+                    setbtnstatus(false);
+                    setTimeout(() => {
+                      navigate('/');
+                    }, 2000);
+                  }}>Logout</button>
+                  
+                )
+              }
             </Nav>
           </Navbar.Collapse>
+<span className="navbar-text" style={{ color: "white", marginLeft: "auto", fontStyle: "italic" }}>
+
+  {btnstatus ? <p style={{ color: "white" ,textDecoration:"underline"}}>{localStorage.getItem("username") }</p>: ""}
+
+</span>
+
         </Container>
       </Navbar>
-
+<ToastContainer/>
     </>
   );
 };
