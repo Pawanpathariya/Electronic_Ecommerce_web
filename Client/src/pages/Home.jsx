@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ban1 from "../images/sldr1.jpg";
+import ban2 from "../images/banner.jpg";
 import shop from "../images/shopbnr1.jpg";
 
 import Carousel from "react-bootstrap/Carousel";
@@ -52,7 +52,7 @@ const Home = () => {
       <Carousel>
         {[...Array(3)].map((_, index) => (
           <Carousel.Item key={index}>
-            <img src={ban1} width="100%" height="380" className="caro" alt={`Slide ${index + 1}`} />
+            <img src={ban2} width="100%" height="380" className="caro" alt={`Slide ${index + 1}`} />
             <Carousel.Caption>
               {/* Placeholder for captions */}
             </Carousel.Caption>
@@ -60,7 +60,9 @@ const Home = () => {
         ))}
       </Carousel>
       <div className="bg">
-        <div className="main-container">
+      <div style={{ backgroundColor: '#212529', textAlign: 'center', color: 'white', marginBottom: '20px',padding:"10px" }}>
+        <h1>Trending Products</h1>
+      </div>         <div className="main-container">
           {trendingProducts}
         </div>
         <div className="Shopbnr1">

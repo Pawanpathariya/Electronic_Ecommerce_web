@@ -8,7 +8,6 @@ import Leptop from "./pages/Leptop";
 import Mobile from "./pages/Mobile";
 import Search from "./pages/Search";
 import Shop from "./pages/Shop";
-import Blogs from "./pages/Blogs";
 import Contact from "./pages/Contact";
 import Checkout from "./pages/Checkout";
 import Computer from "./pages/Computer";
@@ -37,7 +36,6 @@ const App = () => {
           <Route path="products/computer" element={<Computer/>}/>
           <Route path="search" element={<Search/>}/>
           <Route path="shop" element={<Shop/>}/>
-          <Route path="blog" element={<Blogs/>}/>
           <Route path="contact" element={<Contact/>}/>
           <Route path="checkout" element={<Checkout/>}/>
           <Route path="userlogin" element={<UserLogin/>} />

@@ -1,40 +1,44 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import "../style/Topmenu.css";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { mycont } from "../UserContext";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from 'react-toastify';
 import BASEURL from "../confiq/BASEURL";
-import { useEffect } from "react";
 import axios from "axios";
+
 const Topmenu = () => {
-  const userAuthenticate=async()=>{
+  const { btnstatus, setbtnstatus, user, setuser } = useContext(mycont);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const userAuthenticate = async () => {
     const token = localStorage.getItem("token");
-    if (token)
-    {
-      let api=`${BASEURL}/user/userauthenticate`;
-      const response = await axios.post(api, null, { headers: { "x-auth-token": token } });
-      console.log(response.data);
-      localStorage.setItem("username", response.data.name);
-      localStorage.setItem("useremail", response.data.email);
-       navigate("/");     
-       setbtnstatus(true);  
+    if (token) {
+      let api = `${BASEURL}/user/userauthenticate`;
+      try {
+        const response = await axios.post(api, null, { headers: { "x-auth-token": token } });
+        console.log(response.data);
+        localStorage.setItem("username", response.data.name);
+        localStorage.setItem("userid", response.data._id);
+        setuser(localStorage.getItem("username"));
+        localStorage.setItem("useremail", response.data.email);
+        setbtnstatus(true);
+      } catch (error) {
+        console.error("Authentication failed", error);
+      }
     }
-  }
+  };
 
-useEffect(()=>{
-  userAuthenticate();
-}, [])
+  useEffect(() => {
+    userAuthenticate();
+  }, [location]);
 
-
-
-  const navigate=useNavigate();
-  const {btnstatus,setbtnstatus}=useContext(mycont);
   return (
     <>
       <Navbar bg="dark" variant="dark" expand="lg" className="custom-navbar">
@@ -50,7 +54,7 @@ useEffect(()=>{
               fontStyle: "italic",
             }}
           >
-            ElectronixZone
+            ElectronicShop
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -63,19 +67,9 @@ useEffect(()=>{
               <NavDropdown title="Products" id="basic-nav-dropdown" className="nav-link-custom">
                 <NavDropdown.Item as={Link} to="/products/leptop">Laptop</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/products/mobile">Mobile</NavDropdown.Item>
-               <NavDropdown.Item as={Link} to="/products/computer">Computer</NavDropdown.Item>
-                  {/* <NavDropdown.Item as={Link} to="/products/headphone">Headphone</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/products/watch">Watch</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/products/airbuds">Airbuds</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/products/tv">TV</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/products/cctv">CCTV</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/products/ac">AC</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/products/all">All</NavDropdown.Item> */}
+                <NavDropdown.Item as={Link} to="/products/computer">Computer</NavDropdown.Item>
               </NavDropdown>
-
-              <Nav.Link as={Link} to="/blog" className="nav-link-custom">Blogs</Nav.Link>
               <Nav.Link as={Link} to="/contact" className="nav-link-custom">Contact us</Nav.Link>
-              
               {
                 !btnstatus ? (
                   <Nav.Link as={Link} to="/userlogin" className="nav-link-custom">User Login</Nav.Link>
@@ -84,26 +78,24 @@ useEffect(()=>{
                     localStorage.clear();
                     toast.success("Logout Successful");
                     setbtnstatus(false);
+                    setuser("");
                     setTimeout(() => {
                       navigate('/');
                     }, 2000);
                   }}>Logout</button>
-                  
                 )
               }
             </Nav>
           </Navbar.Collapse>
-<span className="navbar-text" style={{ color: "white", marginLeft: "auto", fontStyle: "italic" }}>
-
-  {btnstatus ? <p style={{ color: "white" ,textDecoration:"underline"}}>{localStorage.getItem("username") }</p>: ""}
-
-</span>
-
+          <span className="navbar-text" style={{ color: "white", marginLeft: "auto", fontStyle: "italic" }}>
+            {btnstatus ? <p style={{ color: "white", textDecoration: "underline" }}>{user}</p> : ""}
+          </span>
         </Container>
       </Navbar>
-<ToastContainer/>
+      <ToastContainer />
     </>
   );
 };
 
 export default Topmenu;
+

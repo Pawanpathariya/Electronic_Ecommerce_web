@@ -30,7 +30,7 @@ const Leptop = () => {
 
   const ans = product.map((p) => (
     <Col key={p._id} xs={12} md={4} lg={3} className="mb-4">
-      <Card className="h-100">
+      <Card className="h-100" style={{padding:'10px'}}>
         <Card.Img variant="top" src={`${BASEURL}/${p.defaultimage}`} height="200px" width="200px" />
         <Card.Body>
           <Card.Title className="text-primary"><b>Name: </b>{p.proname}</Card.Title>
