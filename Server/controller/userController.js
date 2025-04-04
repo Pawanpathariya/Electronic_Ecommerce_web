@@ -68,9 +68,20 @@ const Googlelogin = async (req, res) => {
     }
 
 }
+
+const GetUser = async (req, res) => {
+    const { userid } = req.body;
+    try {
+        const user = await UserModel.findById(userid).select("-password");
+        res.status(200).send(user);
+    } catch (error) {
+        res.status(500).send({ message: "Internal server error" });
+    }
+}
 module.exports = {
     Login,
     Register,
     userAuthenticate,
-    Googlelogin
+    Googlelogin,
+    GetUser
 };

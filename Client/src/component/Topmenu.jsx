@@ -23,7 +23,6 @@ const Topmenu = () => {
       let api = `${BASEURL}/user/userauthenticate`;
       try {
         const response = await axios.post(api, null, { headers: { "x-auth-token": token } });
-        console.log(response.data);
         localStorage.setItem("username", response.data.name);
         localStorage.setItem("userid", response.data._id);
         setuser(localStorage.getItem("username"));
