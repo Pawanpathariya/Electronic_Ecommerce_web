@@ -41,4 +41,6 @@ router.post("/insertproduct",upload.array('image', 10),adminController.InsertPro
 router.get('/getproduct',adminController.DisplayProduct);
 router.post('/changetrending',adminController.ChangeTrending);
 router.post('/deleteproduct',adminController.DeleteProduct);
+router.get('/vieworder',adminController.vieworder);
+router.get('/viewuser',adminController.viewuser);
 module.exports=router;

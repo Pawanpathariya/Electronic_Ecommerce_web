@@ -5,7 +5,10 @@ import Button from 'react-bootstrap/Button';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import {removeallProduct} from '../redux/cartSlice';
 import axios from 'axios';
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from 'react-toastify';
 const Checkout = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -23,6 +26,9 @@ const Checkout = () => {
   }, [product]);
 
   useEffect(() => {
+    if(!localStorage.getItem('userid')){
+      navigate('/')
+    }
     const loaddata = async () => {
       let api = `${BASEURL}/user/getuser`;
       try {
@@ -30,6 +36,7 @@ const Checkout = () => {
           userid: localStorage.getItem('userid'),
         });
         setUser(response.data);
+
         if (!response.data.address) {
           response.data.address = '';
         }
@@ -41,6 +48,7 @@ const Checkout = () => {
   }, []);
 
   const initPay = (data) => {
+    console.log(product[0].defaultimage);
     const options = {
       key: 'rzp_test_jzFpAn1XFch491',
       amount: data.amount,
@@ -53,6 +61,9 @@ const Checkout = () => {
         try {
           const verifyURL = `${BASEURL}/api/payment/verify`;
           const { data } = await axios.post(verifyURL, response);
+          if (data.status === 'success') {
+            dispatch(removeallProduct());
+          }
         } catch (error) {
           console.log(error);
         }
@@ -66,14 +77,29 @@ const Checkout = () => {
   };
 
   const handlePay = async () => {
+  if(!address){
+    toast.error("Please enter address")
+  }
+ 
+  if(!product.length){
+  toast.error("Please add product")
+  }
+  else{
     try {
       const orderURL = `${BASEURL}/api/payment/orders`;
-      const { data } = await axios.post(orderURL, { amount: total });
+      const { data } = await axios.post(orderURL, { 
+        amount: total,
+        productname: product.map(p => p.proname).join(', '),
+        userid: localStorage.getItem('userid'),
+        email: user.email, 
+        name: user.name
+      });
       console.log(data);
       initPay(data.data);
     } catch (error) {
       console.log(error);
     }
+  }
   };
 
   return (
@@ -124,7 +150,7 @@ const Checkout = () => {
             ) : (
               <input
                 type="text"
-                placeholder="Enter your address"
+                placeholder="Enter your address" value={address}
                 onChange={(e) => setAddress(e.target.value)}
               />
             )}
@@ -135,6 +161,7 @@ const Checkout = () => {
           <Button variant="primary" onClick={handlePay}>
             Make payment
           </Button>
+          <ToastContainer/>
         </div>
       </div>
     </>

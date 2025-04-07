@@ -1,5 +1,6 @@
 const ProductModel=require("../model/ProductModel");
-
+const OrderModel=require("../model/OrderModel");
+const UserModel=require("../model/userModel");
 const AdminLogin=async(req,res)=>{
     const {username,password}=req.body;
 try {
@@ -70,10 +71,29 @@ const DeleteProduct=async(req,res)=>{
     }
 }
 
+const vieworder=async(req,res)=>{
+    try {
+        const orders=await OrderModel.find();
+        res.status(200).send(orders);
+    } catch (error) {
+        res.status(500).send({message:"Internal server error"})
+    }
+}
+
+const viewuser=async(req,res)=>{
+    try {
+        const users=await UserModel.find();
+        res.status(200).send(users);
+    } catch (error) {
+        res.status(500).send({message:"Internal server error"})
+    }
+}
 module.exports={
     AdminLogin,
     InsertProduct,
     DisplayProduct,
     ChangeTrending,
-    DeleteProduct
+    DeleteProduct,
+    vieworder,
+    viewuser
 }
